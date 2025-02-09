@@ -12,7 +12,7 @@ export function SpendDistributionChart({ data, title }: SpendDistributionChartPr
   const processedData = data.reduce((acc, curr) => {
     const campaignName = curr.campaign_name || 'Unknown Campaign';
     const spend = parseFloat(curr.spend || '0');
-    const existingCampaign = acc.find(item => item.name === campaignName);
+    const existingCampaign = acc.find((item: { name: any; }) => item.name === campaignName);
     
     if (existingCampaign) {
       existingCampaign.value += spend;
@@ -24,7 +24,7 @@ export function SpendDistributionChart({ data, title }: SpendDistributionChartPr
 
   // Sort by spend and take top 5
   const topCampaigns = processedData
-    .sort((a, b) => b.value - a.value)
+    .sort((a: { value: number; }, b: { value: number; }) => b.value - a.value)
     .slice(0, 5);
 
   const COLORS = [
@@ -52,7 +52,7 @@ export function SpendDistributionChart({ data, title }: SpendDistributionChartPr
                 paddingAngle={5}
                 dataKey="value"
               >
-                {topCampaigns.map((entry, index) => (
+                {topCampaigns.map((entry: any, index: number) => (
                   <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                 ))}
               </Pie>
